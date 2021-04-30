@@ -37,6 +37,15 @@ def clicked(x, y):
     pen.clear()
     #pen.write(arg=f"Clicks: {clicks}", align=_textAlign, font=_font)"
     pen.write(arg=f"Clicks: {clicks}",align=_textAlign)
+    noticed()
+    pen.goto(_textPosition)
+
+
+def noticed():
+    global clicks
+    pen.goto(0,210)
+    if (clicks==10) :
+        pen.write(arg=f"deja 10",align=_textAlign)
     
 cookie.onclick(clicked)
 
