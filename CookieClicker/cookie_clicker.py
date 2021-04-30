@@ -11,11 +11,11 @@ wn.bgcolor("black")
 
 #"TEXT"
 #"(fontname, fontsize, fonttype)"
-_fontInfo=("Arial",8,"normal")
-_fontNotice=("Serif",10,"bold")
-_textAlign="center"
-_textPosition=(0,200)
+_infoFont=("Arial",8,"normal")
+_infoPosition=(0,200)
 _noticePosition=(0,220)
+_noticeFont=("Serif",10,"bold")
+_textAlign="center"
 _textColor="white"
 
 wn.register_shape("cookie.gif")
@@ -30,24 +30,23 @@ pen = turtle.Turtle()
 pen.hideturtle()
 pen.color(_textColor)
 pen.penup()
-pen.goto(_textPosition)
-pen.write(arg=f"Clicks: {clicks}",align=_textAlign, font=_fontInfo)
+pen.goto(_infoPosition)
+pen.write(arg=f"Clicks: {clicks}",align=_textAlign, font=_infoFont)
 
 def clicked(x, y):
     global clicks
     clicks += 1
     pen.clear()
-    #pen.write(arg=f"Clicks: {clicks}", align=_textAlign, font=_font)"
-    pen.write(arg=f"Clicks: {clicks}",align=_textAlign,font=_fontInfo)
+    pen.write(arg=f"Clicks: {clicks}",align=_textAlign,font=_infoFont)
     noticed()
-    pen.goto(_textPosition)
+    pen.goto(_infoPosition)
 
 
 def noticed():
     global clicks
     pen.goto(_noticePosition)
     if (clicks%10==0) :
-        pen.write(arg=f"deja {clicks} clicks",align=_textAlign,font=_fontNotice)
+        pen.write(arg=f"deja {clicks} clicks",align=_textAlign,font=_noticeFont)
     
 cookie.onclick(clicked)
 
