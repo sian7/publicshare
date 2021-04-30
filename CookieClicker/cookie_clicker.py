@@ -44,8 +44,8 @@ def clicked(x, y):
 def noticed():
     global clicks
     pen.goto(0,210)
-    if (clicks==10) :
-        pen.write(arg=f"deja 10",align=_textAlign)
+    if (clicks%10==0) :
+        pen.write(arg=f"deja {clicks} clicks",align=_textAlign)
     
 cookie.onclick(clicked)
 
