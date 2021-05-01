@@ -6,6 +6,9 @@
 #import de turtle pour la fenetre et le crayon du jeu 
 import turtle
 
+#import de sleep pour les pause
+from time import sleep
+
 #je crée la fenetre avec turtle 
 screen = turtle.Screen()
 #je met le titre et la couleur de font
@@ -19,6 +22,10 @@ _infoPosition=(0,200)
 #tuples notice text :  font + position
 _noticePosition=(0,220)
 _noticeFont=("Serif",10,"bold")
+#tuple pour l'animation
+_animPosition=(0,-260)
+_animFont=("Serif",16,"bold")
+_animDelay=1
 #text
 _textAlign="center"
 _textColor="white"
@@ -55,20 +62,46 @@ def noticeGamer():
     #tous les 10 click j'informe le joueur
     if (clicks%10==0) :
         pen.write(arg=f"deja {clicks} clicks",align=_textAlign,font=_noticeFont)
-    if (clicks==20) : anim(clicks)
+    if (clicks==30) : 
+        cookie.onclick(nothing)
+        anim(clicks)
+        #cookie.onclick(clicked)
+    
+ 
 
 #je définie anim
 def anim(steps):
-    i=0
-    pen.goto(-50,-200)
-    while i<steps :
-        pen.write(arg=f"{i}",align=_textAlign,font=_noticeFont)
-        #faire une pause
-        
-        #effacer
+    header=f'''
+|__   __   __        __  
+|__) |  ' (__( (__| (__) 
+                                {steps}
+                                    '''
 
+
+    delay=_animDelay/steps
+    #header = "bravo"
+    i=0
+    pen.goto(_animPosition)
+    while i<steps :
+        #efface 
+        pen.clear()
+        #ecrir
+        pen.write(header,align=_textAlign,font=_animFont)
+        #attend
+        sleep(delay)
+        #efface
+        pen.clear()
+        #ecrir
+        pen.write(header,align=_textAlign,font=_animFont)
+        #attend
+        sleep(delay)
+        #effacer
+        pen.clear()
+        #pen.write(arg=f"{i}",align=_textAlign,font=_noticeFont)
         i=i+1 
-    pen.write("bravo")
+    
+def nothing():
+    clicks=0
 
 
 #j'utilise ma méthode (clicked) lorsque le cookie est cliqué 
