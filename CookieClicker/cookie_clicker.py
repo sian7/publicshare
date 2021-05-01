@@ -55,6 +55,21 @@ def noticeGamer():
     #tous les 10 click j'informe le joueur
     if (clicks%10==0) :
         pen.write(arg=f"deja {clicks} clicks",align=_textAlign,font=_noticeFont)
+    if (clicks==20) : anim(clicks)
+
+#je définie anim
+def anim(steps):
+    i=0
+    pen.goto(-50,-200)
+    while i<steps :
+        pen.write(arg=f"{i}",align=_textAlign,font=_noticeFont)
+        #faire une pause
+        
+        #effacer
+
+        i=i+1 
+    pen.write("bravo")
+
 
 #j'utilise ma méthode (clicked) lorsque le cookie est cliqué 
 cookie.onclick(clicked)
