@@ -26,11 +26,15 @@ _noticeFont=("Serif",10,"bold")
 _animPosition=(0,-260)
 _animFont=("Serif",16,"bold")
 _animDelay=1
+#tuple pour les tour
+_tourPosition=(0,240)
+_tourFont=("Serif",14,"bold")
 #text
 _textAlign="center"
 _textColor="white"
 #clicks
 clicks = 0
+tour=0
 
 #j'enregistre et je met l'image de cookie
 screen.register_shape("cookie.gif")
@@ -52,6 +56,9 @@ def clicked(x, y):
     clicks += 1
     pen.clear()
     pen.write(arg=f"Clicks: {clicks}",align=_textAlign,font=_infoFont)
+    if tour>0 :
+        pen.goto(0,280)
+        pen.write(tour,font=_tourFont)
     noticeGamer()
     pen.goto(_infoPosition)
 
@@ -63,9 +70,11 @@ def noticeGamer():
     if (clicks%10==0) :
         pen.write(arg=f"deja {clicks} clicks",align=_textAlign,font=_noticeFont)
     if (clicks==30) : 
-        cookie.onclick(nothing)
+        cookie.onclick(fun=nothing())
         anim(clicks)
-        #cookie.onclick(clicked)
+        clicks=0
+        cookie.onclick(clicked)
+        #screen.exitonclick()
     
  
 
@@ -101,7 +110,8 @@ def anim(steps):
         i=i+1 
     
 def nothing():
-    clicks=0
+    global tour
+    tour=tour+1
 
 
 #j'utilise ma méthode (clicked) lorsque le cookie est cliqué 
