@@ -16,10 +16,10 @@ screen.title("Cookie Clicker")
 screen.bgcolor("black")
 
 #variables
-#tuples info text :  font + position
+#tuples info text :  Police + position
 _infoFont=("Arial",8,"normal")
 _infoPosition=(0,200)
-#tuples notice text :  font + position
+#tuples notice text :  Police + position
 _noticePosition=(0,220)
 _noticeFont=("Serif",10,"bold")
 #tuples pour l'animation
@@ -33,13 +33,16 @@ _tourFont=("Serif",14,"bold")
 _textAlign="center"
 _textColor="white"
 
-_animDelay=1
 
 #clicks
 clicks = 0
 tours=0
-goal=15
-noticedClick=10
+
+#parametre
+noticedClick=5
+goal=6
+maxTours=5
+_animDelay=1
 
 
 
@@ -72,6 +75,8 @@ def noticeGamer():
 
     if (clicks==goal) : 
         anim(clicks)
+        if (tours==maxTours) : exit(0)
+        drawcookie()
 
 def drawTour():
     global tours   
@@ -80,6 +85,12 @@ def drawTour():
         pen.goto(_tourPosition)
         pen.write(arg=f"{tours}",font=_tourFont)
 
+def drawcookie():
+    name=f"cookie{tours}.gif"
+    global screen 
+    screen.register_shape(name)
+    global cookie
+    cookie.shape(name)
 
 #je définie anim
 def anim(steps):
@@ -88,19 +99,21 @@ def anim(steps):
     global cookie
     cookie.onclick(None)  
     """
-   
+    #je compte les tour
     global tours
     tours=tours+1
+    #je récupere les clicks je le set a 0
     global clicks
     clicks=0
-    header=f'''
+    #j'assigne bravo 
+    bravo=f'''
     |__   __   __        __  
     |__) |  ' (__( (__| (__) 
                                     {steps}
                                         '''
-
+    #délai de clignotement
     delay=(_animDelay/steps)/2
-    #header = "bravo"
+    #bravo = "bravo"
     i=0
     pen.penup()
     pen.goto(_animPosition)
@@ -108,13 +121,13 @@ def anim(steps):
         #efface 
         pen.clear()
         #ecrir
-        pen.write(header,align=_textAlign,font=_animFont)
+        pen.write(bravo,align=_textAlign,font=_animFont)
         #attend
         sleep(delay)
         #efface
         pen.clear()
         #ecrir
-        pen.write(header,align=_textAlign,font=_animFont)
+        pen.write(bravo,align=_textAlign,font=_animFont)
         #attend
         sleep(delay)
         #effacer
@@ -123,6 +136,8 @@ def anim(steps):
         i=i+1 
     sleep(_animDelay)
     pen.write("GO",align=_textAlign,font=_animFont)   
+
+
 
     #cookie.onclick(clicked)
     #screen.exitonclick()
@@ -136,13 +151,18 @@ def clicked(x, y):
  
     global clicks
     global tours
+    
+
+
     clicks += 1
+
     pen.clear()
     pen.penup()
     pen.goto(_infoPosition)
     pen.write(arg=f"Clicks: {clicks}",align=_textAlign,font=_infoFont)
 
     drawTour()
+    
     noticeGamer()
 
     cookie.onclick(clicked)
