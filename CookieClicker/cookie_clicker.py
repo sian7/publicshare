@@ -9,13 +9,8 @@ import turtle
 #import de sleep pour les pause
 from time import sleep
 
-#je crée la fenetre avec turtle 
-screen = turtle.Screen()
-#je met le titre et la couleur de font
-screen.title("Cookie Clicker")
-screen.bgcolor("black")
-
 #variables
+
 #tuples info text :  Police + position
 _infoFont=("Arial",8,"normal")
 _infoPosition=(0,200)
@@ -45,24 +40,7 @@ maxTours=5
 _animDelay=1
 
 
-
-#j'enregistre et je met l'image de cookie
-screen.register_shape("cookie.gif")
-cookie = turtle.Turtle()
-cookie.shape("cookie.gif")
-cookie.speed(0)
-
-#j'écrie le text qui affiche les click
-pen = turtle.Turtle()
-pen.hideturtle()
-
-pen.color(_textColor)
-pen.penup()
-pen.goto(_infoPosition)
-pen.write(arg=f"Clicks: {clicks}",align=_textAlign, font=_infoFont)
-
-
-
+#Mes méthode
 
 #je définie la méthode qui informe le joueur 
 def noticeGamer():
@@ -94,11 +72,6 @@ def drawcookie():
 
 #je définie anim
 def anim(steps):
-        
-    """   
-    global cookie
-    cookie.onclick(None)  
-    """
     #je compte les tour
     global tours
     tours=tours+1
@@ -113,10 +86,10 @@ def anim(steps):
                                         '''
     #délai de clignotement
     delay=(_animDelay/steps)/2
-    #bravo = "bravo"
     i=0
     pen.penup()
     pen.goto(_animPosition)
+    #boucle qui me sert a faire clignoter bravo
     while i<steps :
         #efface 
         pen.clear()
@@ -132,28 +105,20 @@ def anim(steps):
         sleep(delay)
         #effacer
         pen.clear()
-
+        #j'incrémente i pour sortir de la boucle quand i = steps
         i=i+1 
+    #pause pour éviter des bug d'affichage  
     sleep(_animDelay)
     pen.write("GO",align=_textAlign,font=_animFont)   
-
-
-
-    #cookie.onclick(clicked)
-    #screen.exitonclick()
-
 
 #je définie la méthode que j'effectue au click
 def clicked(x, y):
     
     global cookie
-    cookie.onclick(None) 
- 
     global clicks
     global tours
     
-
-
+    cookie.onclick(None) 
     clicks += 1
 
     pen.clear()
@@ -167,7 +132,24 @@ def clicked(x, y):
 
     cookie.onclick(clicked)
     
+#je crée la fenetre avec turtle 
+screen = turtle.Screen()
+#je met le titre et la couleur de font
+screen.title("Cookie Clicker")
+screen.bgcolor("black")
 
+#j'enregistre et je met l'image de cookie
+cookie = turtle.Turtle()
+drawcookie()
+cookie.speed(0)
+
+#j'écrie le text qui affiche les click
+pen = turtle.Turtle()
+pen.hideturtle()
+pen.color(_textColor)
+pen.penup()
+pen.goto(_infoPosition)
+pen.write(arg=f"Clicks: {clicks}",align=_textAlign, font=_infoFont)
 
 #j'utilise ma méthode (clicked) lorsque le cookie est cliqué 
 cookie.onclick(clicked)
